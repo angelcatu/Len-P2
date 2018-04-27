@@ -151,12 +151,14 @@
             this.tablaDeTokensToolStripMenuItem.Name = "tablaDeTokensToolStripMenuItem";
             this.tablaDeTokensToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.tablaDeTokensToolStripMenuItem.Text = "Tabla de tokens";
+            this.tablaDeTokensToolStripMenuItem.Click += new System.EventHandler(this.tablaDeTokensToolStripMenuItem_Click);
             // 
             // tablaDeErroresToolStripMenuItem
             // 
             this.tablaDeErroresToolStripMenuItem.Name = "tablaDeErroresToolStripMenuItem";
             this.tablaDeErroresToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.tablaDeErroresToolStripMenuItem.Text = "Tabla de errores";
+            this.tablaDeErroresToolStripMenuItem.Click += new System.EventHandler(this.tablaDeErroresToolStripMenuItem_Click);
             // 
             // acercaDeToolStripMenuItem
             // 

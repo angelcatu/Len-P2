@@ -10,6 +10,7 @@ namespace GeneradorDeCarpetas.Modelos
     {
         private int id;
         private String token;
+        private String descripcion;
         private String lexema;
         private int fila;
         private int columna;
@@ -19,6 +20,15 @@ namespace GeneradorDeCarpetas.Modelos
         {
             this.id = id;
             this.token = token;
+            this.lexema = lexema;
+            this.fila = fila;
+            this.columna = columna;
+        }
+
+        public Token(int id, int fila, int columna, String lexema, String descripcion)
+        {
+            this.id = id;
+            this.descripcion = descripcion;
             this.lexema = lexema;
             this.fila = fila;
             this.columna = columna;
@@ -67,6 +77,11 @@ namespace GeneradorDeCarpetas.Modelos
         public void setColumna(int columna)
         {
             this.columna = columna;
+        }
+
+        public String getDescripcion()
+        {
+            return descripcion;
         }
 
 

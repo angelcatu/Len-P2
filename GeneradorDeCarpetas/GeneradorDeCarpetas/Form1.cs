@@ -1,4 +1,5 @@
 ﻿using GeneradorDeCarpetas.Analisis;
+using GeneradorDeCarpetas.Modelos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,7 @@ namespace GeneradorDeCarpetas
     {
 
         private AnalizadorLexico analizador = new AnalizadorLexico();
+        
 
 
         private String pathDeArchivo = "";
@@ -130,13 +132,35 @@ namespace GeneradorDeCarpetas
         private void analizarTexto()
         {
             AnalizadorLexico.listaTokens.Clear();
-            analizador.setIdToken(0);        
-            analizador.analizarTexto(txtEntrada.Text);
+            analizador.setIdToken(0);
+
+            try
+            {
+                analizador.analizarTexto(txtEntrada.Text);
+                MessageBox.Show("Análisis completado", "Información");
+            }
+            catch(Exception e)
+            {
+
+            }
+            
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             txtEntrada.Clear();
+        }
+
+        private void tablaDeTokensToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Archivo archivo = new Archivo("ReporteTokens", "html");
+            archivo.generarReporteDeTokens();
+        }
+
+        private void tablaDeErroresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Archivo archivo = new Archivo("ReporteDeErrores", "html");
+            archivo.generarReporteDeErrores();
         }
     }
 }
