@@ -70,6 +70,8 @@ namespace GeneradorDeCarpetas.Analisis
                         {
                             lexema += cadena[indice];
 
+
+
                             // :
                         }
                         else if (cadena[indice] == 58)
@@ -161,6 +163,17 @@ namespace GeneradorDeCarpetas.Analisis
                             fila++;
                             columna = 0;
 
+                            if (!lexema.Equals(""))
+                            {
+                                validarToken(lexema);
+                                lexema = "";
+                            }
+
+                            idToken++;
+                            listaTokens.Add(new Token(idToken, "Tk_SaltoLinea", "", fila, columna));
+
+
+
                             //retorno de carro
                         }
                         else if (cadena[indice] == 13)
@@ -249,6 +262,15 @@ namespace GeneradorDeCarpetas.Analisis
                             fila++;
                             columna = 0;
                             estado = 1;
+                            idToken++;
+
+                            if (!lexema.Equals(""))
+                            {
+                                validarToken(lexema);
+                                lexema = "";
+                            }
+
+                            listaTokens.Add(new Token(idToken, "Tk_SaltoLinea", "", fila, columna));
 
                             //retorno de carro
                         }
@@ -329,7 +351,10 @@ namespace GeneradorDeCarpetas.Analisis
                         {
                             columna = 0;
                             fila++;
-                            
+
+                            idToken++;
+                            listaTokens.Add(new Token(idToken, "Tk_SaltoLinea", "", fila, columna));
+
                         }
                         else if (cadena[indice] == 09)
                         {
@@ -397,7 +422,10 @@ namespace GeneradorDeCarpetas.Analisis
                             {
                                 estado = 3;
                             }
-                            
+
+                            idToken++;
+                            listaTokens.Add(new Token(idToken, "Tk_SaltoLinea", "", fila, columna));
+
                             //retorno de carro
                         }
                         else if (cadena[indice] == 13)

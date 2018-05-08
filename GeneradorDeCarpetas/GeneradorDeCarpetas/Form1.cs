@@ -17,7 +17,9 @@ namespace GeneradorDeCarpetas
     {
 
         private AnalizadorLexico analizador = new AnalizadorLexico();
-        
+        private Sintactico sintactico = new Sintactico();
+
+        private List<Token> listaTokens = AnalizadorLexico.listaTokens;
 
 
         private String pathDeArchivo = "";
@@ -137,6 +139,8 @@ namespace GeneradorDeCarpetas
             try
             {
                 analizador.analizarTexto(txtEntrada.Text);
+                //sintactico.analizarSintactico(listaTokens);
+
                 MessageBox.Show("Análisis completado", "Información");
             }
             catch(Exception e)

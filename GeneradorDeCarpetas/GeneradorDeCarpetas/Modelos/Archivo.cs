@@ -81,7 +81,7 @@ namespace GeneradorDeCarpetas.Modelos
                 contenido += "<tr>\n"
                         + "<td align = 'center' >" + token.getId() + "</td>\n"
                         + "<td align = 'center' >" + token.getToken() + "</td>\n"
-                        + "<td align = 'center' >"+ token.getLexema() + "</td>\n"
+                        + "<td align = 'center' >" + token.getLexema() + "</td>\n"
                         + "<td align = 'center' >" + token.getFila() + "</td>\n"
                         + "<td align = 'center' >" + token.getColumna() + "</td>\n"
 
