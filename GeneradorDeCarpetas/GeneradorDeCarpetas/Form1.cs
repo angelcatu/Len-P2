@@ -1,4 +1,5 @@
 ﻿using GeneradorDeCarpetas.Analisis;
+using GeneradorDeCarpetas.Directorio;
 using GeneradorDeCarpetas.Grafica;
 using GeneradorDeCarpetas.Modelos;
 using System;
@@ -20,6 +21,7 @@ namespace GeneradorDeCarpetas
         private AnalizadorLexico analizador = new AnalizadorLexico();
         private Sintactico sintactico = new Sintactico();
         private Graphviz graphviz = new Graphviz();
+        private DireccionFisica directorio = new DireccionFisica();
 
         private List<Token> listaTokens = AnalizadorLexico.listaTokens;
         private List<Token> listaErrores = AnalizadorLexico.listaErrores;
@@ -144,26 +146,48 @@ namespace GeneradorDeCarpetas
             {
                 analizador.analizarTexto(txtEntrada.Text);
                 sintactico.analizarSintactico(listaTokens);
-                graphviz.buscarNodos();
-
-                if(listaErrores.Count == 0)
+                
+                if(listaErrores.Count > 0)
                 {
-                    Archivo archivo = new Archivo();
-                    archivo.generaconDeArbol();
-                    MessageBox.Show("Análisis completado", "Información");
+                    MessageBox.Show("El análisis tiene errores");
+                    btnDirectorios.Enabled = false;
+                    btnGrafo.Enabled = false;
+                    
                 }
                 else
                 {
-                    MessageBox.Show("Hay errores, favor de ver el reporte", "Información");
+                    btnDirectorios.Enabled = true;
+                    btnGrafo.Enabled = true;
+                    MessageBox.Show("Análisis terminado");
                 }
 
-                
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-
+                MessageBox.Show("Ocurrió un problema en el análisis de datos");
             }
             
+        }
+
+        private void btnDirectorios_Click(object sender, EventArgs e)
+        {
+            directorio.crearCarpetas();
+        }
+
+        private void btnGrafo_Click(object sender, EventArgs e)
+        {
+            graphviz.buscarNodos();
+
+            if (listaErrores.Count == 0)
+            {
+                Archivo archivo = new Archivo();
+                archivo.generaconDeArbol();
+                MessageBox.Show("Grafos creados", "Información");
+            }
+            else
+            {
+                MessageBox.Show("Hay errores, favor de ver el reporte", "Información");
+            }
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -181,6 +205,6 @@ namespace GeneradorDeCarpetas
         {
             Archivo archivo = new Archivo("ReporteDeErrores", "html");
             archivo.generarReporteDeErrores();
-        }
+        }      
     }
 }
