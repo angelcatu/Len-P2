@@ -9,15 +9,17 @@ using System.Windows.Forms;
 namespace GeneradorDeCarpetas.Analisis
 {
     class Sintactico
-    {
+    { 
         private Boolean errorSintactico;
         private int actualPreanalisis;
+        private int actualPreanalisisAux;
+        private Token preanalisisAux;
         private Token preanalisis;
         private List<Token> listaDeTokens;
         private List<Token> listaErrores = AnalizadorLexico.listaErrores;
 
         public void analizarSintactico(List<Token> listaTokens)
-        {
+        { 
             listaDeTokens = listaTokens;
             listaDeTokens.Add(new Token(0, "#", "", 0, 0));
             preanalisis = listaTokens.ElementAt(0);
@@ -29,8 +31,7 @@ namespace GeneradorDeCarpetas.Analisis
 
         private void S()
         {
-            Ins();
-            MessageBox.Show("Cadena sin errores sintácticos", "Aviso");
+            Ins();            
         }
 
         private void Ins()
@@ -42,24 +43,54 @@ namespace GeneradorDeCarpetas.Analisis
                 NTerm();
                 match("Tk_LlaveCerrada");
                 match("Tk_Coma");
+                Ins0();
+               
+
+            if (!preanalisis.getToken().Equals("#"))
+            {
+                Ins();
+            }                
+            
+        }
+
+        private void Ins0()
+        {
+            noLeerSaltoDeLinea();
+
+            if (preanalisis.getToken().Equals("Tk_LeerArchivo"))
+            {
                 match("Tk_LeerArchivo");
                 match("Tk_LlaveAbierta");
-                Ins2();
+                    Ins2();
                 match("Tk_LlaveCerrada");
 
+                InsComa();                
+            }else if (preanalisis.getToken().Equals("Tk_CrearEstructura"))
+            {
                 Ins();
-            
+            }
+
+        }
+
+        private void InsComa()
+        {
+            if (preanalisis.getToken().Equals("Tk_Coma"))
+            {
+                match("Tk_Coma");
+                Ins0();
+            }
         }
 
         private void Ins2()
         {
             noLeerSaltoDeLinea();
-
-            match("Tk_Ubicacion");
-            match("Tk_DosPuntos");
-            match("Tk_Comilla");
-            match("Tk_Cadena");
-            match("Tk_Comilla");
+           
+                match("Tk_Ubicacion");
+                match("Tk_DosPuntos");
+                match("Tk_Comilla");
+                match("Tk_Cadena");
+                match("Tk_Comilla");
+             
         }
 
         private void NTerm()
@@ -91,6 +122,8 @@ namespace GeneradorDeCarpetas.Analisis
             match("Tk_Comilla");
             NTerm3();
             match("Tk_CarpetaCierre");
+
+            NTerm3();
         }
 
         private void NTerm3()
@@ -104,14 +137,18 @@ namespace GeneradorDeCarpetas.Analisis
                 NTerm4();
             }
         }
-
+        
         private void NTerm4()
         {
             noLeerSaltoDeLinea();
 
-            match("Tk_Archivo");
-            NTerm5();
-            match("Tk_ArchivoCierre");
+            if (preanalisis.getToken().Equals("Tk_Archivo"))
+            {
+                match("Tk_Archivo");
+                NTerm5();
+                match("Tk_ArchivoCierre");
+                NTerm4();
+            }            
         }
 
         private void NTerm5()
@@ -139,20 +176,19 @@ namespace GeneradorDeCarpetas.Analisis
         {
 
             noLeerSaltoDeLinea();
-
+            
             if(errorSintactico == false)
             {
-                if (!tokenActual.Equals(preanalisis.getToken()) && (!preanalisis.getToken().Equals("Tk_SaltoLinea")))
+                if (!tokenActual.Equals(preanalisis.getToken()) && (!preanalisis.getToken().Equals("Tk_SaltoLinea") && !preanalisis.getToken().Equals("#")))
                 {
                     //mandar a lista de errores sintácticos y avanzar hasta el próximo salto de linea
-
-                    listaErrores.Add(new Token(preanalisis.getId(), preanalisis.getFila(), preanalisis.getColumna(), preanalisis.getLexema(), "Error cerca de " + preanalisis.getLexema()));
-
+                            
+                    listaErrores.Add(new Token(listaErrores.Count+1, preanalisis.getFila(), preanalisis.getColumna(), preanalisis.getLexema(), "Error cerca de " + preanalisis.getLexema()));
+                    buscarSaltoDeLinea("Tk_SaltoLinea", actualPreanalisis);
                     errorSintactico = true;
-
                 }
 
-                if (!preanalisis.getToken().Equals("#"))
+                if (!preanalisis.getToken().Equals("#") && errorSintactico == false)
                 {
                     actualPreanalisis++;
                     preanalisis = listaDeTokens.ElementAt(actualPreanalisis);
@@ -163,17 +199,54 @@ namespace GeneradorDeCarpetas.Analisis
             {
                 actualPreanalisis++;
                 preanalisis = listaDeTokens.ElementAt(actualPreanalisis);
-            }                        
+            }
+                                                          
         }
-
+       
         private void noLeerSaltoDeLinea()
         {
-            if (preanalisis.getToken().Equals("Tk_SaltoLinea"))
+            if (preanalisis.getToken().Equals("Tk_SaltoLinea") && errorSintactico == false)
+            {
+                actualPreanalisis++;
+                preanalisis = listaDeTokens.ElementAt(actualPreanalisis);                
+                noLeerSaltoDeLinea();
+            }
+
+            if (preanalisis.getToken().Equals("Tk_SaltoLinea") && errorSintactico == true)
+            {                
+                errorSintactico = false;
+                preanalisis = preanalisisAux;
+                actualPreanalisis = actualPreanalisisAux;
+                noLeerSaltoDeLinea();
+            }
+        }
+
+        private void buscarSaltoDeLinea(string token, int actualPreanalisis)
+        {
+            for (int i = actualPreanalisis; i < listaDeTokens.Count; i++)
+            {
+                if (listaDeTokens[i].getToken().Equals(token))
+                {
+                    actualPreanalisis = i+1;
+                    actualPreanalisisAux = actualPreanalisis;
+                    preanalisisAux = listaDeTokens.ElementAt(actualPreanalisis);
+                    i = listaDeTokens.Count;
+                }
+            }
+        }
+
+        private void buscarSaltoDeLinea(String token)
+        {
+            if (!token.Equals(preanalisis.getToken()))
             {
                 actualPreanalisis++;
                 preanalisis = listaDeTokens.ElementAt(actualPreanalisis);
-                errorSintactico = false;
-                noLeerSaltoDeLinea();
+
+                buscarSaltoDeLinea("Tk_SaltoLinea");
+            }
+            else
+            {
+                int posSalto = preanalisis.getId();
             }
         }
     }

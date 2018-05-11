@@ -150,6 +150,13 @@ namespace GeneradorDeCarpetas.Analisis
                         else if (cadena[indice] == 34)
                         {
 
+                            if (!lexema.Equals(""))
+                            {
+                                validarToken(lexema);
+                                lexema = "";
+                            }
+
+
                             idToken++;
                             listaTokens.Add(new Token(idToken, "Tk_Comilla", "\"", fila, columna));
 
@@ -388,11 +395,12 @@ namespace GeneradorDeCarpetas.Analisis
                             estado = 0;
 
                             // }
-                        }else if (cadena[indice] == 125)
+                        }
+                        else if (cadena[indice] == 125)
                         {
                             indice--;
                             estado = 0;
-                        
+
                             // <
                         }
                         else if (cadena[indice] == 60)
@@ -401,7 +409,7 @@ namespace GeneradorDeCarpetas.Analisis
 
                             //**********                            
                             indice--;
-                            estado = 0;                                                        
+                            estado = 0;
 
                         } //salto de línea
 
@@ -426,6 +434,11 @@ namespace GeneradorDeCarpetas.Analisis
                             idToken++;
                             listaTokens.Add(new Token(idToken, "Tk_SaltoLinea", "", fila, columna));
 
+                            // '
+                        }else if (cadena[indice] == 39) {
+
+                            indice--;
+                            estado = 0;
                             //retorno de carro
                         }
                         else if (cadena[indice] == 13)

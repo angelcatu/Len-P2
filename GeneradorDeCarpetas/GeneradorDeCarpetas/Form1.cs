@@ -134,12 +134,13 @@ namespace GeneradorDeCarpetas
         private void analizarTexto()
         {
             AnalizadorLexico.listaTokens.Clear();
+            AnalizadorLexico.listaErrores.Clear();
             analizador.setIdToken(0);
 
             try
             {
                 analizador.analizarTexto(txtEntrada.Text);
-                //sintactico.analizarSintactico(listaTokens);
+                sintactico.analizarSintactico(listaTokens);
 
                 MessageBox.Show("Análisis completado", "Información");
             }
