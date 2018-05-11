@@ -96,16 +96,26 @@ namespace GeneradorDeCarpetas.Grafica
                 actualPreanalisisAux = actualPreanalisis;
                 graficar(actualPreanalisisAux + 1);
 
-            } else if (token.getLexema().Equals("}"))
+            } else if (token.getLexema().Equals(",") && !listaDeTokens[actualPreanalisis-1].getToken().Equals("Tk_Comilla") )
+                
+            { 
+
+                codigoGraphviz.Add("}");                
+                actualPreanalisisAux = actualPreanalisis;
+                graficar(actualPreanalisisAux + 1);
+                
+            }else if (token.getToken().Equals("#"))
             {
-                codigoGraphviz.Add("}");
-            }else
+
+            }
+            else
             {
                 actualPreanalisisAux = actualPreanalisis;
                 graficar(actualPreanalisisAux + 1);
             }
         }
 
+        int a = 0;
         private void agregarEnlaceNodo(string nodoPadre, string nodoHijo)
         {
             codigo = "\""+nodoPadre+"\"" +"-> "+ "\""+nodoHijo+"\";" ;

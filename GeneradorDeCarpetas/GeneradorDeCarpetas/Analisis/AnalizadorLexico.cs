@@ -42,6 +42,10 @@ namespace GeneradorDeCarpetas.Analisis
         {
             Char[] cadena = texto.ToCharArray();
 
+            columna = 0;
+            fila = 1;
+            idError = 0;
+            idToken = 0;
 
             for (int indice = 0; indice < texto.Length; indice++)
             {

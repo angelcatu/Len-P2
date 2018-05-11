@@ -1,7 +1,0 @@
-digraph G {graph [rankdir = "TB"]; 
-node[fontsize = "16" shape = "ellipse" ]; 
-"nodo0"[label = "Carpeta proyecto"shape = "record"]; 
-"nodo1"[label = "carpeta1"shape = "record"];
-"nodo0"-> "nodo1";
-"nodo2"[label = "Primer Archivo"shape = "record"];
-"nodo1"-> "nodo2";}

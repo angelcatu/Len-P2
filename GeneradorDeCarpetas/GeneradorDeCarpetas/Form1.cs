@@ -1,4 +1,5 @@
 ﻿using GeneradorDeCarpetas.Analisis;
+using GeneradorDeCarpetas.Grafica;
 using GeneradorDeCarpetas.Modelos;
 using System;
 using System.Collections.Generic;
@@ -18,8 +19,10 @@ namespace GeneradorDeCarpetas
 
         private AnalizadorLexico analizador = new AnalizadorLexico();
         private Sintactico sintactico = new Sintactico();
+        private Graphviz graphviz = new Graphviz();
 
         private List<Token> listaTokens = AnalizadorLexico.listaTokens;
+        private List<Token> listaErrores = AnalizadorLexico.listaErrores;
 
 
         private String pathDeArchivo = "";
@@ -141,8 +144,20 @@ namespace GeneradorDeCarpetas
             {
                 analizador.analizarTexto(txtEntrada.Text);
                 sintactico.analizarSintactico(listaTokens);
+                graphviz.buscarNodos();
 
-                MessageBox.Show("Análisis completado", "Información");
+                if(listaErrores.Count == 0)
+                {
+                    Archivo archivo = new Archivo();
+                    archivo.generaconDeArbol();
+                    MessageBox.Show("Análisis completado", "Información");
+                }
+                else
+                {
+                    MessageBox.Show("Hay errores, favor de ver el reporte", "Información");
+                }
+
+                
             }
             catch(Exception e)
             {

@@ -21,6 +21,12 @@ namespace GeneradorDeCarpetas.Modelos
         private String nombre;
         private String extension;
         private String ruta;
+        private String rutaO;
+
+        public Archivo()
+        {
+            this.rutaO = "C:\\Users\\ang_e\\Documents\\";
+        }
 
         public Archivo(String nombre, String extension)
         {
@@ -197,7 +203,22 @@ namespace GeneradorDeCarpetas.Modelos
             }
         }
 
-        public void crearArchivoDOT()
+        public void generaconDeArbol()
+        {
+            crearArchivoDOT();
+
+            String imagen = "..\\..\\Reportes\\";
+
+            String path = Path.Combine(Application.StartupPath, imagen);
+
+            for (int i = 0; i < codigos.Count; i++)
+            {
+                generarImagen("grafo" + i + ".dot", path);
+                abrirDocumento(this.rutaO, "grafo" + i, "png");
+            }
+        }
+
+        private void crearArchivoDOT()
         {
             try
             {
@@ -210,7 +231,7 @@ namespace GeneradorDeCarpetas.Modelos
                 {
                     for (int i = 0; i < codigos.Count; i++)
                     {
-                        sw = new StreamWriter(@ruta + "grafo" + i + ".dot");
+                        sw = new StreamWriter(this.rutaO + "grafo" + i + ".dot");
                         sw.WriteLine(codigos[i]);
 
                         //Close the file
@@ -218,12 +239,43 @@ namespace GeneradorDeCarpetas.Modelos
                     }
 
                 }
-            }
-            catch
-            {
 
             }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception: " + e.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Executing finally block.");
+            }
         }
+
+        private void generarImagen(string nombre, string ruta)
+        {
+            try
+            {
+                var command = string.Format("dot -Tpng " + "C:\\Users\\ang_e\\Documents\\" + nombre + " -o {1}", Path.Combine(rutaO, nombre), Path.Combine(rutaO, nombre.Replace(".dot", ".png")));
+
+                var procStarInfo = new System.Diagnostics.ProcessStartInfo("cmd", "/C " + command);
+
+                var proc = new System.Diagnostics.Process();
+
+                proc.StartInfo = procStarInfo;
+
+                proc.Start();
+
+                proc.WaitForExit();
+
+                //MessageBox.Show("Imagen creada sin problemas", "Información");
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: no se pudo generar la imagen", "Advertencia");
+            }
+
+        }        
 
     }
 }
