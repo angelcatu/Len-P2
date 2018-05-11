@@ -35,26 +35,44 @@ namespace GeneradorDeCarpetas.Grafica
             actualPreanalisis = 0;
 
             token = listaDeTokens.ElementAt(0);
-
-            codigoGraphviz.Add("digraph G {graph [rankdir = \"TB\"]; node[fontsize = \"16\" shape = \"ellipse\" ]; ");
+            
             graficar(actualPreanalisis);
 
             concatenarCodigo();
-        }       
+        }
 
         private void graficar(int actualPreanalisis)
         {
             token = listaDeTokens.ElementAt(actualPreanalisis);
             String nodo = "nodo";
             String titulo;
-            int actualPreanalisisAux;            
+            int actualPreanalisisAux;
 
-            if (token.getToken().Equals("Tk_Ubicacion"))
-            {                         
-                agregarNodoGraphiz(nodo + Convert.ToString(numNodo), "Carpeta proyecto");
-                listaDePadres.Add(nodo+Convert.ToString(numNodo));
+            if (token.getToken().Equals("Tk_CrearEstructura"))
+            {
+                codigoGraphviz.Add("digraph G {graph [rankdir = \"TB\"]; node[fontsize = \"16\" shape = \"ellipse\" ]; ");
                 actualPreanalisisAux = actualPreanalisis;
                 graficar(actualPreanalisisAux + 1);
+
+            }
+            else if (token.getToken().Equals("Tk_Ubicacion"))
+            {
+
+                if (listaDeTokens[actualPreanalisis - 3].getToken().Equals("Tk_CrearEstructura"))
+                {
+                    agregarNodoGraphiz(nodo + Convert.ToString(numNodo), "Carpeta proyecto");
+                    listaDePadres.Add(nodo + Convert.ToString(numNodo));
+                    actualPreanalisisAux = actualPreanalisis;
+                    graficar(actualPreanalisisAux + 1);
+                }
+                else
+                {
+                    actualPreanalisisAux = actualPreanalisis;
+                    graficar(actualPreanalisisAux + 1);
+                }
+
+                    
+            
 
             } else if (token.getToken().Equals("Tk_Carpeta"))
             {
@@ -63,7 +81,7 @@ namespace GeneradorDeCarpetas.Grafica
                 titulo = listaDeTokens.ElementAt(actualPreanalisis + 2).getLexema();
                 agregarNodoGraphiz(nodo + Convert.ToString(numNodo), titulo);
 
-                nodoPadre = listaDePadres[listaDePadres.Count-1];
+                nodoPadre = listaDePadres[listaDePadres.Count - 1];
                 nodoHijo = nodo + Convert.ToString(numNodo);
 
                 agregarEnlaceNodo(nodoPadre, nodoHijo);
@@ -80,7 +98,7 @@ namespace GeneradorDeCarpetas.Grafica
                 titulo = listaDeTokens.ElementAt(actualPreanalisis + 2).getLexema();
                 agregarNodoGraphiz(nodo + Convert.ToString(numNodo), titulo);
 
-                nodoPadre = listaDePadres[listaDePadres.Count-1];
+                nodoPadre = listaDePadres[listaDePadres.Count - 1];
                 nodoHijo = nodo + Convert.ToString(numNodo);
 
                 agregarEnlaceNodo(nodoPadre, nodoHijo);
@@ -92,17 +110,15 @@ namespace GeneradorDeCarpetas.Grafica
             } else if (token.getToken().Equals("Tk_CarpetaCierre"))
             {
 
-                listaDePadres.RemoveAt(listaDePadres.Count-1);
+                listaDePadres.RemoveAt(listaDePadres.Count - 1);
                 actualPreanalisisAux = actualPreanalisis;
                 graficar(actualPreanalisisAux + 1);
 
-            } else if (token.getLexema().Equals(",") && !listaDeTokens[actualPreanalisis-1].getToken().Equals("Tk_Comilla") )
-                
-            { 
-
-                codigoGraphviz.Add("}");                
-                actualPreanalisisAux = actualPreanalisis;
-                graficar(actualPreanalisisAux + 1);
+            } else if (token.getLexema().Equals(",") && !listaDeTokens[actualPreanalisis - 1].getToken().Equals("Tk_Comilla"))
+            {                
+                    codigoGraphviz.Add("}");
+                    actualPreanalisisAux = actualPreanalisis;
+                    graficar(actualPreanalisisAux + 1);                                                                                        
                 
             }else if (token.getToken().Equals("#"))
             {
@@ -137,13 +153,24 @@ namespace GeneradorDeCarpetas.Grafica
         private void concatenarCodigo()
         {
             String codigo = "";
+
+
+            for (int i = 0; i < codigoGraphviz.Count; i++)
+            {
+                if (codigoGraphviz[i].Equals("}") && codigoGraphviz[i - 1].Equals("}"))
+                {
+                    codigoGraphviz.RemoveAt(i);
+                    i--;
+                }
+            }
                      
                 for (int j = 0; j < codigoGraphviz.Count; j++)
                 {
                     if (codigoGraphviz[j].Equals("}"))
                     {
                         codigo += codigoGraphviz[j];                        
-                        codigoConcatenado.Add(codigo);                        
+                        codigoConcatenado.Add(codigo);
+                    codigo = "";
                     }
                     else
                     {
@@ -151,7 +178,7 @@ namespace GeneradorDeCarpetas.Grafica
                     }
 
                                         
-                }
+                }            
             
         }
     }

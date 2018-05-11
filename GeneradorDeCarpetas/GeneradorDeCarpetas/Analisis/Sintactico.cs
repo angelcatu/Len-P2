@@ -148,7 +148,10 @@ namespace GeneradorDeCarpetas.Analisis
                 NTerm5();
                 match("Tk_ArchivoCierre");
                 NTerm4();
-            }            
+            }else if(preanalisis.getToken().Equals("Tk_Carpeta"))
+            {
+                NTerm3();
+            }
         }
 
         private void NTerm5()
