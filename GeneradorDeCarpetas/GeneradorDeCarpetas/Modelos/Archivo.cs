@@ -1,4 +1,5 @@
 ﻿using GeneradorDeCarpetas.Analisis;
+using GeneradorDeCarpetas.Grafica;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,6 +16,7 @@ namespace GeneradorDeCarpetas.Modelos
 
         private List<Token> listaTokens = AnalizadorLexico.listaTokens;
         private List<Token> listaErrores = AnalizadorLexico.listaErrores;
+        private List<String> codigos = Graphviz.codigoConcatenado;
 
         private String nombre;
         private String extension;
@@ -38,7 +40,8 @@ namespace GeneradorDeCarpetas.Modelos
 
                 abrirDocumento(rutaSave, nombre, extension);
 
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 MessageBox.Show("No se pudo generar el repote de tokens", "Error");
             }
@@ -193,5 +196,34 @@ namespace GeneradorDeCarpetas.Modelos
                 return contenido;
             }
         }
+
+        public void crearArchivoDOT()
+        {
+            try
+            {
+
+                //Pass the filepath and filename to the StreamWriter Constructor
+                StreamWriter sw = null;
+
+                //Write a line of text
+                if (codigos.Count > 0)
+                {
+                    for (int i = 0; i < codigos.Count; i++)
+                    {
+                        sw = new StreamWriter(@ruta + "grafo" + i + ".dot");
+                        sw.WriteLine(codigos[i]);
+
+                        //Close the file
+                        sw.Close();
+                    }
+
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
     }
 }
