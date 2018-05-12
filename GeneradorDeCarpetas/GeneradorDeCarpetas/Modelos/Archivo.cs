@@ -203,79 +203,14 @@ namespace GeneradorDeCarpetas.Modelos
             }
         }
 
-        public void generaconDeArbol()
+        internal void abrirManual()
         {
-            crearArchivoDOT();
+            String path = "..\\..\\Manuales\\";
 
-            String imagen = "..\\..\\Reportes\\";
+            String ruta = Path.Combine(Application.StartupPath, path);
 
-            String path = Path.Combine(Application.StartupPath, imagen);
-
-            for (int i = 0; i < codigos.Count; i++)
-            {
-                generarImagen("grafo" + i + ".dot", path);
-                abrirDocumento(this.rutaO, "grafo" + i, "png");
-            }
+            abrirDocumento(ruta, this.nombre, this.extension);
+           
         }
-
-        private void crearArchivoDOT()
-        {
-            try
-            {
-
-                //Pass the filepath and filename to the StreamWriter Constructor
-                StreamWriter sw = null;
-
-                //Write a line of text
-                if (codigos.Count > 0)
-                {
-                    for (int i = 0; i < codigos.Count; i++)
-                    {
-                        sw = new StreamWriter(this.rutaO + "grafo" + i + ".dot");
-                        sw.WriteLine(codigos[i]);
-
-                        //Close the file
-                        sw.Close();
-                    }
-
-                }
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception: " + e.Message);
-            }
-            finally
-            {
-                Console.WriteLine("Executing finally block.");
-            }
-        }
-
-        private void generarImagen(string nombre, string ruta)
-        {
-            try
-            {
-                var command = string.Format("dot -Tpng " + "C:\\Users\\ang_e\\Documents\\" + nombre + " -o {1}", Path.Combine(rutaO, nombre), Path.Combine(rutaO, nombre.Replace(".dot", ".png")));
-
-                var procStarInfo = new System.Diagnostics.ProcessStartInfo("cmd", "/C " + command);
-
-                var proc = new System.Diagnostics.Process();
-
-                proc.StartInfo = procStarInfo;
-
-                proc.Start();
-
-                proc.WaitForExit();
-
-                //MessageBox.Show("Imagen creada sin problemas", "Información");
-
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Error: no se pudo generar la imagen", "Advertencia");
-            }
-
-        }        
-
     }
 }

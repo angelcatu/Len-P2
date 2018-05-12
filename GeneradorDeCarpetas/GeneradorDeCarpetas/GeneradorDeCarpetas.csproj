@@ -56,6 +56,7 @@
     </Compile>
     <Compile Include="Grafica\Graphviz.cs" />
     <Compile Include="Modelos\Archivo.cs" />
+    <Compile Include="Modelos\Imagen.cs" />
     <Compile Include="Modelos\Token.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -83,6 +84,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Grafos\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

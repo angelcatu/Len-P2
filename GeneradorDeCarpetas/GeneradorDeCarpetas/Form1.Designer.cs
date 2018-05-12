@@ -102,6 +102,7 @@
             this.guardarComoToolStripMenuItem.Name = "guardarComoToolStripMenuItem";
             this.guardarComoToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.guardarComoToolStripMenuItem.Text = "Guardar como...";
+            this.guardarComoToolStripMenuItem.Click += new System.EventHandler(this.guardarComoToolStripMenuItem_Click);
             // 
             // analizarToolStripMenuItem
             // 
@@ -155,12 +156,14 @@
             this.manualUsuarioToolStripMenuItem.Name = "manualUsuarioToolStripMenuItem";
             this.manualUsuarioToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.manualUsuarioToolStripMenuItem.Text = "Manual usuario";
+            this.manualUsuarioToolStripMenuItem.Click += new System.EventHandler(this.manualUsuarioToolStripMenuItem_Click);
             // 
             // manualTécnicoToolStripMenuItem
             // 
             this.manualTécnicoToolStripMenuItem.Name = "manualTécnicoToolStripMenuItem";
             this.manualTécnicoToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.manualTécnicoToolStripMenuItem.Text = "Manual técnico";
+            this.manualTécnicoToolStripMenuItem.Click += new System.EventHandler(this.manualTécnicoToolStripMenuItem_Click);
             // 
             // acercaDeToolStripMenuItem
             // 

@@ -180,8 +180,9 @@ namespace GeneradorDeCarpetas
 
             if (listaErrores.Count == 0)
             {
-                Archivo archivo = new Archivo();
-                archivo.generaconDeArbol();
+                Imagen imagen = new Imagen();
+                imagen.generaconDeArbol();
+                imagen.reporteHTML("ReporteGrafos", "html");
                 MessageBox.Show("Grafos creados", "Información");
             }
             else
@@ -205,6 +206,24 @@ namespace GeneradorDeCarpetas
         {
             Archivo archivo = new Archivo("ReporteDeErrores", "html");
             archivo.generarReporteDeErrores();
-        }      
+        }
+
+        private void manualUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Archivo archivo = new Archivo("ManualUsuario", "pdf");
+            archivo.abrirManual();
+        }
+
+        private void manualTécnicoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+            Archivo archivo = new Archivo("ManualTecnico", "pdf");
+            archivo.abrirManual();
+        }
+
+        private void guardarComoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            guardarArchivo();
+        }
     }
 }

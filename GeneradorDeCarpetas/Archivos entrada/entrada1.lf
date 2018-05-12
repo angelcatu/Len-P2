@@ -1,0 +1,139 @@
+CrearEstructura{
+	'Ubicacion':"C:/Users/ang_e/Documents/",
+	'Estructura':{
+		<Carpeta>"carpeta1"
+			<Carpeta>"carpeta1.1"
+				<Carpeta>"carpeta1.1.1"
+					<Archivo>
+						<Nombre>"Primer Archivo"</Nombre>
+						<Extension>.txt</Extension>
+						<Texto>"Este es el texto dentro del primer archivo!!!"</Texto>
+					</Archivo>
+				</Carpeta>
+			</Carpeta>
+                                                <Carpeta>"carpeta1.1.2"
+					<Archivo>
+						<Nombre>"Segundo Archivo"</Nombre>
+						<Extension>.txt</Extension>
+						<Texto>"Segundo archivo!!!"</Texto>
+					</Archivo>
+				</Carpeta>
+
+		</Carpeta>
+		
+		<Carpeta>"carpeta2"
+			<Carpeta>"carpeta2.1"
+				<Archivo>
+					<Nombre>"Tercer Archivo"</Nombre>
+					<Extension>.er</Extension>
+					<Texto>"tercerArchivo"</Texto>
+				</Archivo>
+			</Carpeta>
+		</Carpeta>
+		
+		<Carpeta>"carpeta3"
+			<Archivo>
+				<Nombre>"Cuarto Archivo"</Nombre>
+				<Extension>.lfp</Extension>
+				<Texto>"Este es el texto dentro del cuarto archivo!!!"</Texto>
+			</Archivo>
+		</Carpeta>
+	}
+} ,
+
+CrearEstructura{
+	'Ubicacion':"C:/Users/ang_e/Documents/",
+	'Estructura':{
+		<Carpeta>"carpeta1"	
+					<Archivo>
+						<Nombre>"QuintoArchivo"</Nombre>
+						<Extension>.txt</Extension>
+						<Texto>"Este es el texto dentro del quinto archivo!!!"</Texto>
+					</Archivo>				
+		</Carpeta>			
+	}
+} ,
+
+CrearEstructura{
+	'Ubicacion':"C:/Users/ang_e/Documents/",
+	'Estructura':{
+		<Carpeta>"carpeta4"
+			<Carpeta>"carpeta1.1"
+				<Carpeta>"carpeta1.1.1"
+					<Archivo>
+						<Nombre>"Primer Archivo"</Nombre>
+						<Extension>.txt</Extension>
+						<Texto>"Este es el texto dentro del primer archivo!!!"</Texto>
+					</Archivo>
+				</Carpeta>
+			</Carpeta>
+		</Carpeta>
+		
+		<Carpeta>"carpeta5"
+			<Carpeta>"carpeta2.1"
+				<Archivo>
+					<Nombre>"Segundo Archivo"</Nombre>
+					<Extension>.er</Extension>
+					<Texto>"Este es el texto dentro del segundo archivo!!!"</Texto>
+				</Archivo>
+			</Carpeta>
+		</Carpeta>
+		
+		<Carpeta>"carpeta6"
+			<Archivo>
+				<Nombre>"Tercer Archivo"</Nombre>
+				<Extension>.lfp</Extension>
+				<Texto>"Este es el texto dentro del tercer archivo!!!"</Texto>
+			</Archivo>
+		</Carpeta>
+	}
+} ,
+
+CrearEstructura{
+	'Ubicacion':"C:/Users/ang_e/Documents/",
+	'Estructura':{
+		<Carpeta>"carpeta7"
+			<Carpeta>"carpeta1.1"
+				<Carpeta>"carpeta1.1.1"
+					<Archivo>
+						<Nombre>"Primer Archivo"</Nombre>
+						<Extension>.txt</Extension>
+						<Texto>"Este es el texto dentro del primer archivo!!!"</Texto>
+					</Archivo>
+				</Carpeta>
+			</Carpeta>
+		</Carpeta>
+		
+		<Carpeta>"carpeta8"
+			<Carpeta>"carpeta2.1"
+				<Archivo>
+					<Nombre>"Segundo Archivo"</Nombre>
+					<Extension>.er</Extension>
+					<Texto>"Este es el texto dentro del segundo archivo!!!"</Texto>
+				</Archivo>
+			</Carpeta>
+		</Carpeta>
+		
+		<Carpeta>"carpeta9"
+			<Archivo>
+				<Nombre>"C9"</Nombre>
+				<Extension>.txt</Extension>
+				<Texto>"Abierto este archivo"</Texto>
+			</Archivo>
+		</Carpeta>
+	}
+} ,
+
+LeerArchivo{
+	'Ubicacion':"C:/Users/ang_e/Documents/CarpetaProyecto/carpeta9/C9.txt"
+},
+
+LeerArchivo{
+	'Ubicacion':"C:/Users/ang_e/Documents/CarpetaProyecto/carpeta1/QuintoArchivo.txt"
+}
+
+
+
+
+
+

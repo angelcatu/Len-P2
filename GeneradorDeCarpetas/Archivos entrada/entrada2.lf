@@ -1,0 +1,38 @@
+CrearEstructura{
+	'Ubicacion':"C:/Users/ang_e/Documents/",
+	'Estructura':{
+		<Carpeta>"carpeta1"	
+					<Archivo>
+						<Nombre>"PrimerArchivo"</Nombre>
+						<Extension>.txt</Extension>
+						<Texto>"Este es el texto dentro del primer archivo!!!"</Texto>
+					</Archivo>	
+
+ 	                <Carpeta>"carpeta2"	
+ 					       <Archivo>
+						          <Nombre>"SegundoArchivo"</Nombre>
+						           <Extension>.txt</Extension>
+						           <Texto>"Este es el texto dentro del segundo archivo!!!"</Texto>
+					      </Archivo>	
+			                                       <Carpeta>"carpeta2"	
+ 					       <Archivo>
+						          <Nombre>"SegundoArchivo"</Nombre>
+						           <Extension>.txt</Extension>
+						           <Texto>"Este es el texto dentro del segundo archivo!!!"</Texto>
+					      </Archivo>				
+		             </Carpeta>			
+		             </Carpeta>					
+		</Carpeta>			
+	}
+} ,
+
+LeerArchivo{
+	'Ubicacion':"C:/Users/ang_e/Documents/CarpetaProyecto/carpeta1/PrimerArchivo.txt"
+}
+
+
+
+
+
+
+

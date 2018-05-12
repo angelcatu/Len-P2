@@ -20,6 +20,7 @@ namespace GeneradorDeCarpetas.Directorio
         private Token token;
         private int actualPreanalisis;
 
+        private int numCarpeta;
         
         private String rutaPadre;
         private String rutaHijo;
@@ -34,6 +35,7 @@ namespace GeneradorDeCarpetas.Directorio
             rutaPadre = "";
             rutaHijo = "";
             actualPreanalisis = 0;
+            numCarpeta = 0;
 
             token = listaDeTokens.ElementAt(0);
 
@@ -58,7 +60,9 @@ namespace GeneradorDeCarpetas.Directorio
 
                 if (listaDeTokens[actualPreanalisis - 3].getToken().Equals("Tk_CrearEstructura"))
                 {
-                    rutaPadre = listaDeTokens[actualPreanalisis + 3].getLexema()+"/CarpetaProyecto/";
+                    numCarpeta++;
+                    //rutaPadre = listaDeTokens[actualPreanalisis + 3].getLexema()+"/CarpetaProyecto"+Convert.ToString(numCarpeta)+ "/";
+                    rutaPadre = listaDeTokens[actualPreanalisis + 3].getLexema() + "/CarpetaProyecto/";
                     directorio = rutaPadre;
                     listaDirectoriosPadres.Add(directorio);       
                     
